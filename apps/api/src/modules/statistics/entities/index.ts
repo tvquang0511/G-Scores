@@ -1,0 +1,2 @@
+// Statistics entities placeholder
+export {};
