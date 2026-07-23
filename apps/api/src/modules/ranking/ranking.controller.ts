@@ -1,5 +1,10 @@
 import { Controller, Get } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiOkResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiOkResponse,
+  ApiInternalServerErrorResponse,
+} from '@nestjs/swagger';
 import { RankingService } from './ranking.service';
 import { GroupARankingResponseDto } from './dto';
 
@@ -10,13 +15,16 @@ export class RankingController {
 
   @Get()
   @ApiOperation({
-    summary: 'Get Top 10 students in Group A',
+    summary: 'Lấy danh sách Top 10 học sinh khối A',
     description:
-      'Retrieves the Top 10 students with the highest total score in Group A (Math + Physics + Chemistry). Students with missing scores in any of these subjects are excluded.',
+      'Lấy danh sách Top 10 học sinh có tổng điểm khối A (Toán + Lý + Hóa) cao nhất. Loại bỏ các thí sinh bị thiếu điểm ở một trong ba môn này.',
   })
   @ApiOkResponse({
-    description: 'Top 10 Group A students retrieved successfully.',
+    description: 'Danh sách Top 10 thí sinh khối A được lấy thành công.',
     type: [GroupARankingResponseDto],
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Lỗi server trong quá trình truy vấn dữ liệu xếp hạng.',
   })
   async getTopGroupARanking(): Promise<GroupARankingResponseDto[]> {
     return this.rankingService.getTopGroupARanking();
