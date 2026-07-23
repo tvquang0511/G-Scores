@@ -1,2 +1,0 @@
-// Ranking entities placeholder
-export {};
