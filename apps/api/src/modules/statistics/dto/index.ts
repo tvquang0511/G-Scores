@@ -1,2 +1,1 @@
-// Statistics DTOs placeholder
-export {};
+export * from './subject-statistics.dto';

@@ -1,98 +1,236 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Backend Overview
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+The backend is built with **NestJS**, **Prisma ORM**, and **PostgreSQL**, following a modular architecture and RESTful API design. It provides APIs for student score lookup, score statistics, and university subject group rankings based on the 2024 Vietnamese National High School Examination dataset.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Tech Stack
 
-## Description
+* NestJS
+* TypeScript
+* Prisma ORM
+* PostgreSQL
+* Docker
+* Swagger (OpenAPI)
+* GitHub Actions
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+---
 
-## Project setup
+# Features
 
-```bash
-$ npm install
+## Student Lookup
+
+* Search student scores by registration number.
+* Input validation using `class-validator`.
+* Proper HTTP status codes.
+* Swagger documentation.
+
+Endpoint:
+
+```http
+GET /students/:registrationNumber
 ```
 
-## Compile and run the project
+---
 
-```bash
-# development
-$ npm run start
+## Statistics
 
-# watch mode
-$ npm run start:dev
+Generate score distributions for every subject.
 
-# production mode
-$ npm run start:prod
+The API categorizes scores into four levels:
+
+* Excellent (>= 8)
+* Good (6 - <8)
+* Average (4 - <6)
+* Poor (<4)
+
+The implementation performs aggregation directly inside PostgreSQL using raw SQL for better performance on datasets with over one million records.
+
+Endpoint:
+
+```http
+GET /statistics
 ```
 
-## Run tests
+---
 
-```bash
-# unit tests
-$ npm run test
+## Ranking
 
-# e2e tests
-$ npm run test:e2e
+Return the Top 10 students for a selected university subject group.
 
-# test coverage
-$ npm run test:cov
+Supported groups:
+
+* A
+* A1
+* B
+* C
+* D
+
+Example:
+
+```http
+GET /ranking?group=A
 ```
 
-## Deployment
+Ranking is calculated inside PostgreSQL using dynamic SQL generated from the selected subject group.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+---
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+# Database
+
+## ORM
+
+Prisma ORM is used for:
+
+* schema management
+* migrations
+* database access
+* type-safe queries
+
+---
+
+## Migration
+
+Database schema is managed using Prisma Migrate.
+
+Example:
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm run prisma:migrate
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+---
 
-## Resources
+## Seeder
 
-Check out a few resources that may come in handy when working with NestJS:
+The project imports the official 2024 examination dataset (over one million records) into PostgreSQL.
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+The seeder:
 
-## Support
+* reads the CSV file
+* transforms data
+* inserts records in batches
+* avoids connection timeout by chunking inserts
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Example:
 
-## Stay in touch
+```bash
+npm run prisma:seed
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+---
 
-## License
+# Performance
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Several optimizations are implemented.
+
+## Database Index
+
+The registration number is indexed to speed up lookup operations.
+
+```text
+registrationNumber
+```
+
+---
+
+## Raw SQL
+
+Complex analytical queries are executed using raw SQL instead of loading all records into Node.js.
+
+Benefits:
+
+* lower memory usage
+* faster execution
+* database-side aggregation
+
+---
+
+## In-Memory Cache
+
+Frequently accessed endpoints are cached using NestJS Cache Manager.
+
+Cached endpoints:
+
+* GET /statistics
+* GET /ranking
+
+Student lookup is intentionally not cached because it is already optimized with database indexing.
+
+---
+
+## Rate Limiting
+
+Global rate limiting protects public APIs from excessive requests.
+
+Configuration:
+
+* 30 requests
+* 1 minute
+* per IP
+
+The implementation uses:
+
+* @nestjs/throttler
+
+---
+
+# API Documentation
+
+Swagger UI is available for testing all APIs.
+
+It includes:
+
+* request validation
+* response schema
+* endpoint descriptions
+* query parameters
+
+---
+
+# Validation
+
+All incoming requests are validated using:
+
+* ValidationPipe
+* class-validator
+* class-transformer
+
+Invalid requests return proper HTTP error responses.
+
+---
+
+# CI
+
+GitHub Actions automatically validates the project on every push.
+
+Current pipeline includes:
+
+* dependency installation
+* project build
+* code verification
+
+---
+
+# Docker
+
+Docker support is included for local development.
+
+The project can be started using Docker Compose together with PostgreSQL and other required services.
+
+---
+
+# Current Backend Status
+
+* Prisma ORM
+* PostgreSQL
+* Database Migration
+* Seeder
+* Validation
+* Swagger
+* Raw SQL Optimization
+* Statistics API
+* Student Lookup API
+* Multi-Group Ranking API
+* Rate Limiting
+* In-Memory Cache
+* GitHub Actions
+* Docker Support
