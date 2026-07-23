@@ -24,7 +24,7 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
     ]),
     CacheModule.register({
       isGlobal: true,
-      ttl: 300000, // 300 seconds (in milliseconds)
+      ttl: 600000, // 600 seconds (in milliseconds)
     }),
     StudentsModule,
     StatisticsModule,
