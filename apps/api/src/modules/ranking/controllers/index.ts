@@ -1,2 +1,0 @@
-// Ranking controllers placeholder
-export {};

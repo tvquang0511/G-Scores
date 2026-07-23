@@ -1,7 +1,7 @@
 import { ArgumentMetadata, BadRequestException, ValidationPipe } from '@nestjs/common';
-import { StudentLookupParamsDto } from '../dto';
+import { StudentLookupParamsDto } from './dto';
 import { StudentsController } from './students.controller';
-import { StudentsService } from '../services';
+import { StudentsService } from './students.service';
 
 describe('StudentsController & StudentLookupParamsDto Validation', () => {
   let validationPipe: ValidationPipe;

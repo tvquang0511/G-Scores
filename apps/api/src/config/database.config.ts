@@ -1,4 +1,6 @@
-// Database configuration (placeholder)
-export const databaseConfig = () => ({
-  // e.g. host, port, username, password, database
-});
+import { registerAs } from '@nestjs/config';
+
+export const databaseConfig = registerAs('database', () => ({
+  url: process.env.DATABASE_URL,
+  directUrl: process.env.DIRECT_URL,
+}));

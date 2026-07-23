@@ -1,2 +1,0 @@
-// Statistics DTOs placeholder
-export {};

@@ -7,8 +7,8 @@ import {
   ApiBadRequestResponse,
   ApiNotFoundResponse,
 } from '@nestjs/swagger';
-import { StudentsService } from '../services';
-import { GetStudentParamsDto, StudentLookupParamsDto, StudentResponseDto } from '../dto';
+import { StudentsService } from './students.service';
+import { StudentLookupParamsDto, StudentResponseDto } from './dto';
 
 @ApiTags('students')
 @Controller('students')

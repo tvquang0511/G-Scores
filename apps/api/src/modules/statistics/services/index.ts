@@ -1,2 +1,0 @@
-// Statistics services placeholder
-export {};

@@ -1,12 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
-import { AppModule } from './app.module';
+import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const configService = app.get(ConfigService);
 
-  app.enableCors(); // Bật CORS để frontend có thể gọi được API
+  app.enableCors();
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
@@ -14,15 +16,21 @@ async function bootstrap() {
     }),
   );
 
-  const config = new DocumentBuilder()
-    .setTitle('G-Scores API')
-    .setDescription('Tài liệu API cho hệ thống G-Scores')
-    .setVersion('1.0')
-    .build();
-    
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, document);
+  const swaggerTitle = configService.get<string>('swagger.title', 'G-Scores API');
+  const swaggerDesc = configService.get<string>('swagger.description', 'Tài liệu API cho hệ thống G-Scores');
+  const swaggerVersion = configService.get<string>('swagger.version', '1.0');
+  const swaggerPath = configService.get<string>('swagger.path', 'api/docs');
 
-  await app.listen(process.env.PORT ?? 3000);
+  const config = new DocumentBuilder()
+    .setTitle(swaggerTitle)
+    .setDescription(swaggerDesc)
+    .setVersion(swaggerVersion)
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup(swaggerPath, app, document);
+
+  const port = configService.get<number>('app.port', 3000);
+  await app.listen(port);
 }
 bootstrap();

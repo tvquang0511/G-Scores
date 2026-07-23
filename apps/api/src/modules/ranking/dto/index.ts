@@ -1,2 +1,0 @@
-// Ranking DTOs placeholder
-export {};

@@ -1,4 +1,6 @@
-// Application configuration (placeholder)
-export const appConfig = () => ({
-  // e.g. port: parseInt(process.env.PORT, 10) || 3000
-});
+import { registerAs } from '@nestjs/config';
+
+export const appConfig = registerAs('app', () => ({
+  nodeEnv: process.env.NODE_ENV || 'development',
+  port: parseInt(process.env.PORT || '3000', 10),
+}));
