@@ -3,30 +3,32 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider  = "postgresql"
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
 model Student {
-  id                     String   @id @default(cuid())
+  id                 String   @id @default(cuid())
 
-  registrationNumber     String   @unique
+  registrationNumber String   @unique
 
-  math                   Float?
-  literature             Float?
-  foreignLanguage        Float?
+  math               Float?
+  literature         Float?
+  foreignLanguage    Float?
 
-  physics                Float?
-  chemistry              Float?
-  biology                Float?
+  physics            Float?
+  chemistry          Float?
+  biology            Float?
 
-  history                Float?
-  geography              Float?
-  civicEducation         Float?
+  history            Float?
+  geography          Float?
+  civicEducation     Float?
 
-  foreignLanguageCode    String?
+  foreignLanguageCode String?
 
-  createdAt              DateTime @default(now())
-  updatedAt              DateTime @updatedAt
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([registrationNumber])
 }
