@@ -1,5 +1,4 @@
 import { Controller, Get, UseInterceptors } from '@nestjs/common';
-import { CacheInterceptor } from '@nestjs/cache-manager';
 import {
   ApiTags,
   ApiOperation,
@@ -8,10 +7,11 @@ import {
 } from '@nestjs/swagger';
 import { StatisticsService } from './statistics.service';
 import { SubjectStatisticsDto } from './dto';
+import { LoggingCacheInterceptor } from '../../common/interceptors/logging-cache.interceptor';
 
 @ApiTags('statistics')
 @Controller('statistics')
-@UseInterceptors(CacheInterceptor)
+@UseInterceptors(LoggingCacheInterceptor)
 export class StatisticsController {
   constructor(private readonly statisticsService: StatisticsService) {}
 
