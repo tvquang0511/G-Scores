@@ -16,12 +16,14 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
       isGlobal: true,
       load: [appConfig, databaseConfig, swaggerConfig],
     }),
-    ThrottlerModule.forRoot([
-      {
-        ttl: 60000,
-        limit: 30,
-      },
-    ]),
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 60000,
+          limit: 30,
+        },
+      ],
+    }),
     CacheModule.register({
       isGlobal: true,
       ttl: 600000, // 600 seconds (in milliseconds)
