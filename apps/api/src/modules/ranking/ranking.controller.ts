@@ -6,27 +6,95 @@ import {
   ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
 import { RankingService } from './ranking.service';
-import { GroupARankingResponseDto } from './dto';
+import { RankingGroup, RankingResponseDto } from './dto';
 
 @ApiTags('ranking')
 @Controller('ranking')
 export class RankingController {
   constructor(private readonly rankingService: RankingService) {}
 
-  @Get()
+  @Get('g-a')
   @ApiOperation({
-    summary: 'Lấy danh sách Top 10 học sinh khối A',
+    summary: 'Get Top 10 students in Group A (Math, Physics, Chemistry)',
     description:
-      'Lấy danh sách Top 10 học sinh có tổng điểm khối A (Toán + Lý + Hóa) cao nhất. Loại bỏ các thí sinh bị thiếu điểm ở một trong ba môn này.',
+      'Retrieves the Top 10 students with the highest total score in Group A (Math + Physics + Chemistry). Excludes students missing any subject score.',
   })
   @ApiOkResponse({
-    description: 'Danh sách Top 10 thí sinh khối A được lấy thành công.',
-    type: [GroupARankingResponseDto],
+    description: 'Top 10 Group A students retrieved successfully.',
+    type: [RankingResponseDto],
   })
   @ApiInternalServerErrorResponse({
-    description: 'Lỗi server trong quá trình truy vấn dữ liệu xếp hạng.',
+    description: 'Internal server error occurred while computing ranking.',
   })
-  async getTopGroupARanking(): Promise<GroupARankingResponseDto[]> {
-    return this.rankingService.getTopGroupARanking();
+  async getTopGroupA(): Promise<Record<string, any>[]> {
+    return this.rankingService.getTopRanking(RankingGroup.A);
+  }
+
+  @Get('g-a1')
+  @ApiOperation({
+    summary: 'Get Top 10 students in Group A1 (Math, Physics, Foreign Language)',
+    description:
+      'Retrieves the Top 10 students with the highest total score in Group A1 (Math + Physics + Foreign Language). Excludes students missing any subject score.',
+  })
+  @ApiOkResponse({
+    description: 'Top 10 Group A1 students retrieved successfully.',
+    type: [RankingResponseDto],
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Internal server error occurred while computing ranking.',
+  })
+  async getTopGroupA1(): Promise<Record<string, any>[]> {
+    return this.rankingService.getTopRanking(RankingGroup.A1);
+  }
+
+  @Get('g-b')
+  @ApiOperation({
+    summary: 'Get Top 10 students in Group B (Math, Chemistry, Biology)',
+    description:
+      'Retrieves the Top 10 students with the highest total score in Group B (Math + Chemistry + Biology). Excludes students missing any subject score.',
+  })
+  @ApiOkResponse({
+    description: 'Top 10 Group B students retrieved successfully.',
+    type: [RankingResponseDto],
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Internal server error occurred while computing ranking.',
+  })
+  async getTopGroupB(): Promise<Record<string, any>[]> {
+    return this.rankingService.getTopRanking(RankingGroup.B);
+  }
+
+  @Get('g-c')
+  @ApiOperation({
+    summary: 'Get Top 10 students in Group C (Literature, History, Geography)',
+    description:
+      'Retrieves the Top 10 students with the highest total score in Group C (Literature + History + Geography). Excludes students missing any subject score.',
+  })
+  @ApiOkResponse({
+    description: 'Top 10 Group C students retrieved successfully.',
+    type: [RankingResponseDto],
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Internal server error occurred while computing ranking.',
+  })
+  async getTopGroupC(): Promise<Record<string, any>[]> {
+    return this.rankingService.getTopRanking(RankingGroup.C);
+  }
+
+  @Get('g-d')
+  @ApiOperation({
+    summary: 'Get Top 10 students in Group D (Math, Literature, Foreign Language)',
+    description:
+      'Retrieves the Top 10 students with the highest total score in Group D (Math + Literature + Foreign Language). Excludes students missing any subject score.',
+  })
+  @ApiOkResponse({
+    description: 'Top 10 Group D students retrieved successfully.',
+    type: [RankingResponseDto],
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Internal server error occurred while computing ranking.',
+  })
+  async getTopGroupD(): Promise<Record<string, any>[]> {
+    return this.rankingService.getTopRanking(RankingGroup.D);
   }
 }
