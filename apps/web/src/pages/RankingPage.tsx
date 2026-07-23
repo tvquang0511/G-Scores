@@ -89,10 +89,10 @@ export default function RankingPage() {
               <div className="p-8 text-center text-slate-500">Chưa có dữ liệu xếp hạng cho khối này.</div>
             ) : (
               <div className="overflow-x-auto">
-                <table className="w-full text-sm text-left">
+                <table className="w-full text-sm text-left border-collapse">
                   <thead className="bg-slate-100/70 text-slate-700 font-semibold uppercase text-xs border-b border-slate-200">
                     <tr>
-                      <th className="py-3.5 px-4 text-center w-16">Hạng</th>
+                      <th className="py-3.5 px-4 text-center w-20">Hạng</th>
                       <th className="py-3.5 px-4">Số Báo Danh</th>
                       <th className="py-3.5 px-4 text-center">Tổng Điểm</th>
                       <th className="py-3.5 px-4 text-center">Chi tiết môn 1</th>
@@ -114,31 +114,31 @@ export default function RankingPage() {
                             rank === 1 ? 'bg-yellow-50/40' : rank === 2 ? 'bg-slate-50/60' : rank === 3 ? 'bg-amber-50/30' : ''
                           }`}
                         >
-                          <td className="py-3.5 px-4 text-center font-bold">
+                          <td className="py-3.5 px-4 text-center align-middle">
                             {rank === 1 ? (
-                              <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-yellow-400 text-yellow-950 font-black shadow-xs">
-                                🥇 1
+                              <span className="inline-flex items-center justify-center min-w-[2.25rem] px-2.5 py-1 rounded-full bg-yellow-100 text-yellow-900 border border-yellow-300 text-xs font-extrabold shadow-2xs">
+                                #1
                               </span>
                             ) : rank === 2 ? (
-                              <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-slate-300 text-slate-900 font-black shadow-xs">
-                                🥈 2
+                              <span className="inline-flex items-center justify-center min-w-[2.25rem] px-2.5 py-1 rounded-full bg-slate-200 text-slate-800 border border-slate-300 text-xs font-bold shadow-2xs">
+                                #2
                               </span>
                             ) : rank === 3 ? (
-                              <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-amber-400/80 text-amber-950 font-black shadow-xs">
-                                🥉 3
+                              <span className="inline-flex items-center justify-center min-w-[2.25rem] px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300 text-xs font-bold shadow-2xs">
+                                #3
                               </span>
                             ) : (
-                              <span className="text-slate-500 font-semibold">#{rank}</span>
+                              <span className="text-slate-500 font-semibold text-xs">#{rank}</span>
                             )}
                           </td>
-                          <td className="py-3.5 px-4 font-bold text-slate-900 tracking-wider">
+                          <td className="py-3.5 px-4 font-bold text-slate-900 tracking-wider align-middle">
                             {student.registrationNumber}
                           </td>
-                          <td className="py-3.5 px-4 text-center font-black text-blue-700 text-base">
+                          <td className="py-3.5 px-4 text-center font-black text-blue-700 text-base align-middle">
                             {student.total.toFixed(2)}
                           </td>
                           {scoreKeys.map((key) => (
-                            <td key={key} className="py-3.5 px-4 text-center font-medium text-slate-700">
+                            <td key={key} className="py-3.5 px-4 text-center font-medium text-slate-700 align-middle">
                               {student[key as keyof typeof student]}
                             </td>
                           ))}
