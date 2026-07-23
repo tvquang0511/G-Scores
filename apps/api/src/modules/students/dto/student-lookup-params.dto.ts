@@ -1,10 +1,11 @@
 import { IsString, IsNotEmpty, Matches } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class GetStudentParamsDto {
+export class StudentLookupParamsDto {
   @ApiProperty({
-    description: 'Registration number (8 numeric digits)',
+    description: 'The 8-digit numeric registration number (Mã số báo danh)',
     example: '01000001',
+    pattern: '^[0-9]{8}$',
   })
   @IsString()
   @IsNotEmpty()
