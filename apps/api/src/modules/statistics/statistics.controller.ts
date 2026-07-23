@@ -1,5 +1,10 @@
 import { Controller, Get } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiOkResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiOkResponse,
+  ApiTooManyRequestsResponse,
+} from '@nestjs/swagger';
 import { StatisticsService } from './statistics.service';
 import { SubjectStatisticsDto } from './dto';
 
@@ -17,6 +22,9 @@ export class StatisticsController {
   @ApiOkResponse({
     description: 'Score distribution statistics for all subjects retrieved successfully.',
     type: [SubjectStatisticsDto],
+  })
+  @ApiTooManyRequestsResponse({
+    description: 'Rate limit exceeded. Maximum 30 requests per 60 seconds.',
   })
   async getStatistics(): Promise<SubjectStatisticsDto[]> {
     return this.statisticsService.getScoreStatistics();

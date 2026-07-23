@@ -1,4 +1,4 @@
-import { Controller, Get, Param, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
@@ -6,6 +6,7 @@ import {
   ApiOkResponse,
   ApiBadRequestResponse,
   ApiNotFoundResponse,
+  ApiTooManyRequestsResponse,
 } from '@nestjs/swagger';
 import { StudentsService } from './students.service';
 import { StudentLookupParamsDto, StudentResponseDto } from './dto';
@@ -36,7 +37,10 @@ export class StudentsController {
   @ApiNotFoundResponse({
     description: 'Student with the specified registration number was not found.',
   })
-  async getStudent(@Param(new ValidationPipe()) params: StudentLookupParamsDto): Promise<StudentResponseDto> {
+  @ApiTooManyRequestsResponse({
+    description: 'Rate limit exceeded. Maximum 30 requests per 60 seconds.',
+  })
+  async getStudent(@Param() params: StudentLookupParamsDto): Promise<StudentResponseDto> {
     return this.studentsService.getStudentByRegistrationNumber(params.registrationNumber);
   }
 }

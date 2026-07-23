@@ -4,6 +4,7 @@ import {
   ApiOperation,
   ApiOkResponse,
   ApiInternalServerErrorResponse,
+  ApiTooManyRequestsResponse,
 } from '@nestjs/swagger';
 import { RankingService } from './ranking.service';
 import { RankingGroup, RankingResponseDto } from './dto';
@@ -26,6 +27,9 @@ export class RankingController {
   @ApiInternalServerErrorResponse({
     description: 'Internal server error occurred while computing ranking.',
   })
+  @ApiTooManyRequestsResponse({
+    description: 'Rate limit exceeded. Maximum 30 requests per 60 seconds.',
+  })
   async getTopGroupA(): Promise<Record<string, any>[]> {
     return this.rankingService.getTopRanking(RankingGroup.A);
   }
@@ -42,6 +46,9 @@ export class RankingController {
   })
   @ApiInternalServerErrorResponse({
     description: 'Internal server error occurred while computing ranking.',
+  })
+  @ApiTooManyRequestsResponse({
+    description: 'Rate limit exceeded. Maximum 30 requests per 60 seconds.',
   })
   async getTopGroupA1(): Promise<Record<string, any>[]> {
     return this.rankingService.getTopRanking(RankingGroup.A1);
@@ -60,6 +67,9 @@ export class RankingController {
   @ApiInternalServerErrorResponse({
     description: 'Internal server error occurred while computing ranking.',
   })
+  @ApiTooManyRequestsResponse({
+    description: 'Rate limit exceeded. Maximum 30 requests per 60 seconds.',
+  })
   async getTopGroupB(): Promise<Record<string, any>[]> {
     return this.rankingService.getTopRanking(RankingGroup.B);
   }
@@ -77,6 +87,9 @@ export class RankingController {
   @ApiInternalServerErrorResponse({
     description: 'Internal server error occurred while computing ranking.',
   })
+  @ApiTooManyRequestsResponse({
+    description: 'Rate limit exceeded. Maximum 30 requests per 60 seconds.',
+  })
   async getTopGroupC(): Promise<Record<string, any>[]> {
     return this.rankingService.getTopRanking(RankingGroup.C);
   }
@@ -93,6 +106,9 @@ export class RankingController {
   })
   @ApiInternalServerErrorResponse({
     description: 'Internal server error occurred while computing ranking.',
+  })
+  @ApiTooManyRequestsResponse({
+    description: 'Rate limit exceeded. Maximum 30 requests per 60 seconds.',
   })
   async getTopGroupD(): Promise<Record<string, any>[]> {
     return this.rankingService.getTopRanking(RankingGroup.D);
