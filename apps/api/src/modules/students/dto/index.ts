@@ -1,4 +1,4 @@
 // Students DTOs placeholder
 // Define request/response DTOs here
 
-export {};
+export * from './get-student-params.dto';
