@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { RankingController } from './ranking.controller';
 import { RankingService } from './ranking.service';
 import { RankingGroup } from './dto';
@@ -18,6 +19,13 @@ describe('RankingController Unit Tests', () => {
         {
           provide: RankingService,
           useValue: service,
+        },
+        {
+          provide: CACHE_MANAGER,
+          useValue: {
+            get: jest.fn(),
+            set: jest.fn(),
+          },
         },
       ],
     }).compile();

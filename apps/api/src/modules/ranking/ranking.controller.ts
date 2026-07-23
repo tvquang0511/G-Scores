@@ -1,4 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseInterceptors } from '@nestjs/common';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 import {
   ApiTags,
   ApiOperation,
@@ -11,6 +12,7 @@ import { RankingGroup, RankingResponseDto } from './dto';
 
 @ApiTags('ranking')
 @Controller('ranking')
+@UseInterceptors(CacheInterceptor)
 export class RankingController {
   constructor(private readonly rankingService: RankingService) {}
 
