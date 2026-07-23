@@ -2,14 +2,11 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
-      - develop
   pull_request:
 
 jobs:
   backend:
-    name: Build Backend
+    name: Build & Test Backend
     runs-on: ubuntu-latest
 
     defaults:
@@ -32,6 +29,11 @@ jobs:
 
       - name: Generate Prisma Client
         run: npx prisma generate
+        env:
+          DATABASE_URL: "postgresql://dummy:dummy@localhost:5432/dummy"
+
+      - name: Run Unit Tests
+        run: npm test
 
       - name: Build
         run: npm run build
