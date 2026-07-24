@@ -1,75 +1,53 @@
-# React + TypeScript + Vite
+# 🎨 G-Scores Web Application (`apps/web`)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Modern, ultra-responsive React 19 single-page web application (SPA) for high school examination result lookup, interactive score distribution charts, and university entrance rankings.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠️ Tech Stack
 
-## React Compiler
+- **Framework**: React 19 + Vite 8
+- **Language**: TypeScript v5.7
+- **Styling**: Tailwind CSS v4 + Shadcn UI
+- **Typography**: Google Font `Rubik`
+- **Charts**: Recharts v3 (Responsive Donut Charts)
+- **Data Fetching**: TanStack Query v5 + Axios
+- **Routing**: React Router v7 SPA
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 📌 Features & Pages
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 1. 🔍 Tra Cứu Điểm SBD (`/lookup`)
+- 8-digit numeric input validation (`/^[0-9]{8}$/`).
+- Color-coded score cards for 10 subjects (Excellent: Emerald, Average: Amber, Poor: Red).
+- Graceful 404 / Error handling cards.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 2. 📊 Thống Kê Phổ Điểm (`/statistics`)
+- Interactive Recharts Donut Charts for score distribution across 4 levels (**Giỏi ≥8.0**, **Khá 6-8**, **TB 4-6**, **Yếu <4**).
+- Subject filter dropdown (Math, Lit, Eng, Phys, Chem, Bio, Hist, Geo, Civic Ed).
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 3. 🏆 Bảng Xếp Hạng Top 10 (`/ranking`)
+- Selector tabs for 5 major entrance groups (**Khối A**, **A1**, **B**, **C**, **D**).
+- Distinct rank badges (`#1`, `#2`, `#3`) aligned vertically in responsive data tables.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
 
-```
+## 🚀 Quick Start (Local Web Server)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+1. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+2. **Setup Environment Variables**:
+   Create `.env` (or copy `.env.example`):
+   ```env
+   VITE_API_BASE_URL="http://localhost:3000"
+   ```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
+3. **Start Development Server**:
+   ```bash
+   npm run dev
+   ```
+   Open `http://localhost:5173` in your browser.
