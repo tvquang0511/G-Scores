@@ -1,61 +1,23 @@
-version: "3.9"
+version: '3.8'
 
 services:
-
   postgres:
     image: postgres:16-alpine
-    container_name: g-scores-postgres
-
-    restart: unless-stopped
-
+    container_name: gscores-postgres-dev
+    restart: always
     environment:
-      POSTGRES_DB: g_scores
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-
+      POSTGRES_DB: gscores
+    ports:
+      - '5432:5432'
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-
+      - postgres_data_dev:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d g_scores"]
-      interval: 10s
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d gscores']
+      interval: 5s
       timeout: 5s
       retries: 5
 
-  api:
-    build:
-      context: ..
-      dockerfile: apps/api/Dockerfile
-
-    container_name: g-scores-api
-
-    restart: unless-stopped
-
-    depends_on:
-      postgres:
-        condition: service_healthy
-
-    environment:
-      NODE_ENV: production
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/g_scores
-
-    ports:
-      - "3000:3000"
-
-  web:
-    build:
-      context: ..
-      dockerfile: apps/web/Dockerfile
-
-    container_name: g-scores-web
-
-    restart: unless-stopped
-
-    depends_on:
-      - api
-
-    ports:
-      - "80:80"
-
 volumes:
-  postgres_data:
+  postgres_data_dev:

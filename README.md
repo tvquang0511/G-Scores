@@ -103,12 +103,12 @@ Choose any of the 3 execution modes below to evaluate the application:
 
 ---
 
-### 🟡 MODE 2: Local PostgreSQL with `docker-compose.dev.yml`
+### 🟡 MODE 2: Local PostgreSQL with `infra/docker-compose.dev.yml`
 *Runs local PostgreSQL 16 in a Docker container while running code locally.*
 
 1. **Start Local PostgreSQL Container**:
    ```bash
-   docker compose -f docker-compose.dev.yml up -d
+   docker compose -f infra/docker-compose.dev.yml up -d
    ```
 
 2. **Uncomment Local Database URL in `.env` & `apps/api/.env`**:
@@ -127,12 +127,12 @@ Choose any of the 3 execution modes below to evaluate the application:
 
 ---
 
-### 🔵 MODE 3: Single-Command Full Production Stack (Docker Compose)
+### 🔵 MODE 3: Single-Command Full Production Stack (`infra/docker-compose.yml`)
 *Builds and runs PostgreSQL, NestJS API, and Nginx React Web in Docker with a single command.*
 
 1. **Run Docker Compose**:
    ```bash
-   docker compose up -d --build
+   docker compose -f infra/docker-compose.yml up -d --build
    ```
 
 2. **Seed Data into Docker PostgreSQL (Optional)**:
