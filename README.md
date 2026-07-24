@@ -111,16 +111,17 @@ Choose any of the 3 execution modes below to evaluate the application:
    docker compose -f docker-compose.dev.yml up -d
    ```
 
-2. **Uncomment Local Database URL in `.env`**:
+2. **Uncomment Local Database URL in `.env` & `apps/api/.env`**:
    ```env
    DATABASE_URL="postgresql://postgres:postgres@localhost:5432/gscores?schema=public"
    DIRECT_URL="postgresql://postgres:postgres@localhost:5432/gscores?schema=public"
    ```
 
-3. **Push Prisma Schema & Start Backend**:
+3. **Push Prisma Schema, Seed Data & Start Backend**:
    ```bash
    cd apps/api
    npx prisma db push
+   npm run prisma:seed
    npm run start:dev
    ```
 
@@ -134,9 +135,33 @@ Choose any of the 3 execution modes below to evaluate the application:
    docker compose up -d --build
    ```
 
+2. **Seed Data into Docker PostgreSQL (Optional)**:
+   ```bash
+   docker exec -it gscores-api npx prisma db seed --schema=apps/api/prisma/schema.prisma
+   ```
+
 - 🌐 Web Application (Nginx): `http://localhost` (Port 80)
 - ⚡ Backend API: `http://localhost:3000` (Port 3000)
 - 🗄️ PostgreSQL Database: `localhost:5432` (Port 5432)
+
+---
+
+## 🌱 Data Seeding (`diem_thi_thpt_2024.csv`)
+
+The project includes an official dataset (`apps/api/data/diem_thi_thpt_2024.csv`). To import the dataset into your target PostgreSQL database (Local or Supabase):
+
+```bash
+# Navigate to API directory
+cd apps/api
+
+# Execute Prisma Seeder (batch import with progress status)
+npm run prisma:seed
+```
+
+**Seeding Features**:
+- Stream-reads CSV data using `csv-parser`.
+- Inserts data in batch chunks of **5,000 records** for maximum speed.
+- Logs progress in real time (`Imported 5000 / 1000000`, etc.).
 
 ---
 

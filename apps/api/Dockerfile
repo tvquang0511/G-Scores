@@ -30,6 +30,7 @@ RUN npm install --only=production
 
 COPY --from=builder /app/apps/api/dist ./apps/api/dist
 COPY --from=builder /app/apps/api/prisma ./apps/api/prisma
+COPY --from=builder /app/apps/api/data ./apps/api/data
 COPY --from=builder /app/node_modules ./node_modules
 
 EXPOSE 3000
