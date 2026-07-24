@@ -56,11 +56,20 @@ A modern, high-performance web application designed for high school national exa
 
 ---
 
-## 🚀 Quick Start Guide (3 Evaluation Modes)
+## 🚀 Quick Start Guide (4 Evaluation Modes)
 
-Choose any of the 3 execution modes below to evaluate the application:
+Choose any of the 4 execution modes below to evaluate the application:
 
-### 🟢 MODE 1 (DEFAULT / RECOMMENDED): Supabase Cloud Database (Zero Setup)
+### 🌟 MODE 0: Live Deployed Application (Zero Setup / Instant Access)
+*Evaluate the fully deployed production application live in your browser immediately.*
+
+- 🌐 **Live Web Application (Vercel)**: [https://g-scores-kappa.vercel.app](https://g-scores-kappa.vercel.app)
+- ⚡ **Live Backend API (Render)**: [https://g-scores-api-dmr1.onrender.com](https://g-scores-api-dmr1.onrender.com)
+- 📚 **Live Swagger OpenAPI Docs**: [https://g-scores-api-dmr1.onrender.com/api/docs](https://g-scores-api-dmr1.onrender.com/api/docs)
+
+---
+
+### 🟢 MODE 1 (DEFAULT): Supabase Cloud Database (Zero Setup)
 *Runs locally connected directly to live Supabase Cloud PostgreSQL.*
 
 1. **Clone the repository**:
@@ -161,7 +170,7 @@ npm run prisma:seed
 **Seeding Features**:
 - Stream-reads CSV data using `csv-parser`.
 - Inserts data in batch chunks of **5,000 records** for maximum speed.
-- Logs progress in real time (`Imported 5000 / 1000000`, etc.).
+- Logs progress in real time (`Imported 5000 / 1061605`, etc.).
 
 ---
 
